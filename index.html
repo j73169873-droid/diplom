@@ -2,333 +2,740 @@
 <html lang="ru">
 
 <head>
-	<title>Мой простой сайт</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Дипломный проект - Веб-разработка</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 	<style>
-		* body {
+		:root {
+			--primary: #667eea;
+			--secondary: #764ba2;
+			--accent: #ff6b6b;
+			--light: #f8f9fa;
+			--dark: #343a40;
+			--success: #1dd1a1;
+			--warning: #ff9f43;
+			--info: #3498db;
+		}
+
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		body {
 			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-			line-height: 1.6;
+			line-height: 1.7;
 			color: #333;
 			background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-			padding: 20px;
 			min-height: 100vh;
+			position: relative;
+			overflow-x: hidden;
+		}
 
-					.emoji {
-				position: fixed;
-				font-size: 30px;
-				z-index: -1;
-				animation: float 10s infinite ease-in-out;
+		.emoji {
+			position: fixed;
+			font-size: 24px;
+			z-index: -1;
+			animation: float 15s infinite ease-in-out;
+			pointer-events: none;
+		}
+
+		@keyframes float {
+
+			0%,
+			100% {
+				transform: translate(0, 0) rotate(0deg);
+			}
+
+			25% {
+				transform: translate(20px, -30px) rotate(10deg);
+			}
+
+			50% {
+				transform: translate(-15px, 20px) rotate(-5deg);
+			}
+
+			75% {
+				transform: translate(10px, 15px) rotate(5deg);
+			}
+		}
+
+		.container {
+			max-width: 1200px;
+			margin: 0 auto;
+			padding: 20px;
+		}
+
+		/* Header стили */
+		header {
+			background: rgba(255, 255, 255, 0.95);
+			border-radius: 20px;
+			padding: 30px;
+			margin-bottom: 30px;
+			box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+			text-align: center;
+			backdrop-filter: blur(10px);
+			border: 1px solid rgba(255, 255, 255, 0.2);
+		}
+
+		.logo {
+			max-width: 500px;
+			margin: 0 auto 20px;
+			display: block;
+		}
+
+		h1 {
+			color: var(--primary);
+			font-size: 2.8rem;
+			margin-bottom: 10px;
+			background: linear-gradient(to right, var(--primary), var(--secondary));
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+		}
+
+		.subtitle {
+			color: var(--dark);
+			font-size: 1.2rem;
+			margin-bottom: 20px;
+			opacity: 0.8;
+		}
+
+		/* Навигация */
+		.nav-links {
+			display: flex;
+			justify-content: center;
+			flex-wrap: wrap;
+			gap: 15px;
+			margin-top: 20px;
+		}
+
+		.nav-btn {
+			display: inline-flex;
+			align-items: center;
+			gap: 8px;
+			background: linear-gradient(to right, var(--primary), var(--secondary));
+			color: white;
+			padding: 12px 24px;
+			border-radius: 50px;
+			text-decoration: none;
+			font-weight: 600;
+			transition: all 0.3s ease;
+			box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+		}
+
+		.nav-btn:hover {
+			transform: translateY(-3px);
+			box-shadow: 0 8px 20px rgba(102, 126, 234, 0.5);
+		}
+
+		/* Карточки */
+		.card {
+			background: rgba(255, 255, 255, 0.95);
+			border-radius: 15px;
+			padding: 30px;
+			margin-bottom: 30px;
+			box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+			transition: transform 0.3s ease;
+			border: 1px solid rgba(255, 255, 255, 0.3);
+		}
+
+		.card:hover {
+			transform: translateY(-5px);
+		}
+
+		.card h2 {
+			color: var(--primary);
+			margin-bottom: 20px;
+			padding-bottom: 15px;
+			border-bottom: 2px solid rgba(102, 126, 234, 0.1);
+			display: flex;
+			align-items: center;
+			gap: 10px;
+		}
+
+		.card h2 i {
+			color: var(--secondary);
+		}
+
+		.content-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 25px;
+			margin: 30px 0;
+		}
+
+		/* Ссылки в карточках */
+		.resource-link {
+			display: flex;
+			align-items: center;
+			gap: 12px;
+			padding: 15px;
+			background: rgba(248, 249, 250, 0.8);
+			border-radius: 10px;
+			margin-bottom: 10px;
+			text-decoration: none;
+			color: var(--dark);
+			transition: all 0.2s ease;
+			border-left: 4px solid var(--primary);
+		}
+
+		.resource-link:hover {
+			background: white;
+			transform: translateX(5px);
+			box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+		}
+
+		.resource-link i {
+			color: var(--primary);
+			font-size: 1.2rem;
+		}
+
+		/* Таблицы */
+		.table-container {
+			overflow-x: auto;
+			margin: 25px 0;
+		}
+
+		.modern-table {
+			width: 100%;
+			border-collapse: collapse;
+			background: white;
+			border-radius: 10px;
+			overflow: hidden;
+			box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+		}
+
+		.modern-table th {
+			background: linear-gradient(to right, var(--primary), var(--secondary));
+			color: white;
+			padding: 18px 15px;
+			text-align: left;
+			font-weight: 600;
+		}
+
+		.modern-table td {
+			padding: 15px;
+			border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+		}
+
+		.modern-table tr:hover {
+			background: rgba(102, 126, 234, 0.03);
+		}
+
+		/* Таблица с месяцами - специальный стиль */
+		.months-table {
+			width: 100%;
+			max-width: 400px;
+			margin: 20px auto;
+			border-collapse: collapse;
+			background: white;
+			border-radius: 10px;
+			overflow: hidden;
+			box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+		}
+
+		.months-table th {
+			background: linear-gradient(to right, var(--primary), var(--secondary));
+			color: white;
+			padding: 15px;
+			text-align: center;
+			font-weight: 600;
+			font-size: 1.1rem;
+		}
+
+		.months-table td {
+			padding: 12px 15px;
+			text-align: center;
+			border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+			font-size: 1rem;
+		}
+
+		.months-table tr:nth-child(even) {
+			background: rgba(248, 249, 250, 0.5);
+		}
+
+		.months-table tr:hover {
+			background: rgba(102, 126, 234, 0.08);
+		}
+
+		.avatar {
+			width: 36px;
+			height: 36px;
+			border-radius: 50%;
+			background: linear-gradient(135deg, var(--primary), var(--secondary));
+			color: white;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-weight: bold;
+		}
+
+		.status {
+			padding: 6px 12px;
+			border-radius: 20px;
+			font-size: 0.85rem;
+			font-weight: 600;
+		}
+
+		.status-active {
+			background: rgba(29, 209, 161, 0.1);
+			color: var(--success);
+		}
+
+		.status-pending {
+			background: rgba(255, 159, 67, 0.1);
+			color: var(--warning);
+		}
+
+		.status-completed {
+			background: rgba(52, 152, 219, 0.1);
+			color: var(--info);
+		}
+
+		.progress-bar {
+			height: 8px;
+			background: rgba(0, 0, 0, 0.05);
+			border-radius: 4px;
+			overflow: hidden;
+		}
+
+		.progress-fill {
+			height: 100%;
+			border-radius: 4px;
+		}
+
+		.progress-75 {
+			width: 75%;
+			background: var(--success);
+		}
+
+		.progress-50 {
+			width: 50%;
+			background: var(--warning);
+		}
+
+		.progress-90 {
+			width: 90%;
+			background: var(--info);
+		}
+
+		/* Изображения */
+		.image-container {
+			display: flex;
+			justify-content: center;
+			margin: 25px 0;
+		}
+
+		.responsive-img {
+			max-width: 100%;
+			height: auto;
+			border-radius: 10px;
+			box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+			transition: transform 0.3s ease;
+		}
+
+		.responsive-img:hover {
+			transform: scale(1.02);
+		}
+
+		/* Footer */
+		footer {
+			text-align: center;
+			padding: 25px;
+			margin-top: 40px;
+			color: white;
+			background: rgba(0, 0, 0, 0.2);
+			border-radius: 15px;
+			backdrop-filter: blur(10px);
+		}
+
+		/* Адаптивность */
+		@media (max-width: 768px) {
+			.container {
+				padding: 15px;
 			}
 
 			header {
-				text-align: center;
-				margin-bottom: 40px;
-        @@ -27,
-				164+31,
-				241 @@
+				padding: 20px;
 			}
 
-			h2 {
-				color: #3498db;
-				color: #fff8db;
-				margin: 25px 0 15px;
-				padding-bottom: 10px;
-				border-bottom: 1px solid #eee;
+			h1 {
+				font-size: 2rem;
 			}
 
+			.nav-links {
+				flex-direction: column;
+				align-items: center;
+			}
+
+			.nav-btn {
+				width: 100%;
+				justify-content: center;
+			}
+
+			.content-grid {
+				grid-template-columns: 1fr;
+			}
+
+			.months-table {
+				max-width: 100%;
+			}
+		}
 	</style>
+</head>
 
-</style>
-<div id="emojiContainer"></div>
+<body>
+	<div id="emojiContainer"></div>
 
-<div class="content">
-</div>
+	<div class="container">
+		<header>
+			<img src="https://de18-engine.flamingtext.com/netfu/tmp28006/coollogo_com-173861600.png" alt="Логотип сайта" class="logo">
+			<h1>Дипломный проект</h1>
+			<p class="subtitle">Исследование современных веб-технологий и инструментов разработки</p>
 
-<script>
-	const emojis = ['😇', '🥰', '😍', '🤩', '😘', '😚', '😋', '😜', '🤪', '😝', '🤑', '🤗', '🥶', '🤯', '😱', '🤓', '🥳'];
+			<div class="nav-links">
+				<a href="#about" class="nav-btn"><i class="fas fa-info-circle"></i> О сайте</a>
+				<a href="#structure" class="nav-btn"><i class="fas fa-sitemap"></i> Структура сайта</a>
+				<a href="#tools" class="nav-btn"><i class="fas fa-tools"></i> Инструменты</a>
+				<a href="#table" class="nav-btn"><i class="fas fa-table"></i> Таблицы</a>
+			</div>
+		</header>
+
+		<main>
+			<section id="about" class="card">
+				<h2><i class="fas fa-globe"></i> Что такое сайт?</h2>
+				<p>Сайт (веб-сайт) — это совокупность связанных веб-страниц, доступных в интернете и объединённых под
+					одним доменным именем. Веб-страницы могут содержать текст, изображения, видео, аудио и другие
+					мультимедийные элементы.</p>
+				<p>Сайты могут быть статическими, где контент редко изменяется, или динамическими, где контент
+					обновляется регулярно.</p>
+
+				<div class="image-container">
+					<img src="https://static.tildacdn.info/tild3137-3637-4261-a231-356562323532/-/resize/504x/noroot.png" alt="Структура сайта" class="responsive-img">
+                </div>
+			</section>
+
+			<section id="tools" class="card">
+				<h2><i class="fas fa-link"></i> Полезные ресурсы</h2>
+				<div class="content-grid">
+					<div>
+						<a href="https://j73169873-droid.github.io/drweb/" class="resource-link" target="_blank">
+							<i class="fas fa-shield-alt"></i>
+							<div>
+								<strong>Dr.Web</strong>
+								<div class="link-desc">Проверка файла на вирусы</div>
+							</div>
+						</a>
+
+						<a href="https://www.figma.com/" class="resource-link" target="_blank">
+							<i class="fab fa-figma"></i>
+							<div>
+								<strong>Figma</strong>
+								<div class="link-desc">Создание дизайна и прототипов</div>
+							</div>
+						</a>
+					</div>
+
+					<div>
+						<a href="https://magvi.ai/file" class="resource-link" target="_blank">
+							<i class="fas fa-layer-group"></i>
+							<div>
+								<strong>Magvi</strong>
+								<div class="link-desc">Генератор карточек и инфографики</div>
+							</div>
+						</a>
+
+						<a href="https://www.flamingtext.com/" class="resource-link" target="_blank">
+							<i class="fas fa-fire"></i>
+							<div>
+								<strong>Flaming Text</strong>
+								<div class="link-desc">Генератор красивого текста</div>
+							</div>
+						</a>
+					</div>
+				</div>
+			</section>
+
+			<section id="structure" class="card">
+				<h2><i class="fas fa-project-diagram"></i> Структура сайта</h2>
+				<div class="content-grid">
+					<div>
+						<h3><i class="fas fa-home"></i> Главная страница</h3>
+						<p>Это «лицо» сайта, отправная точка для посетителей. Здесь размещают логотип, название сайта,
+							краткое описание тематики и другие элементы.</p>
+
+						<h3><i class="fas fa-folder"></i> Разделы и категории</h3>
+						<p>Крупные блоки информации, посвящённые определённым темам. Например, в интернет-магазине:
+							«Женщины», «Мужчины», «Дети».</p>
+
+						<h3><i class="fas fa-sitemap"></i> Подразделы</h3>
+						<p>Используются для дальнейшей детализации информации, создают иерархическую структуру,
+							облегчающую поиск нужных данных.</p>
+					</div>
+
+					<div>
+						<h3><i class="fas fa-file"></i> Страницы</h3>
+						<p>Это «кирпичики» сайта, которые содержат конкретную информацию: текст, изображения, видео,
+							формы обратной связи.</p>
+
+						<h3><i class="fas fa-bars"></i> Меню</h3>
+						<p>Навигация, которая помогает пользователям ориентироваться на сайте и находить нужную
+							информацию. Может быть главным, боковым или в футере.</p>
+
+						<h3><i class="fas fa-link"></i> Перелинковка</h3>
+						<p>Ссылки между страницами внутри сайта, улучшающие навигацию и SEO-оптимизацию.</p>
+					</div>
+				</div>
+			</section>
+
+			<section id="table" class="card">
+				<h2><i class="fas fa-table"></i> Таблицы на сайте</h2>
+				<p>Таблицы на сайте — это специальный элемент, который предназначен для систематической организации
+					данных в виде строк и столбцов.</p>
+
+				<div class="table-container">
+					<table class="modern-table">
+						<thead>
+							<tr>
+								<th>Проект</th>
+								<th>Ответственный</th>
+								<th>Статус</th>
+								<th>Прогресс</th>
+								<th>Срок</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>
+									<strong>Веб-сайт компании</strong>
+									<div style="font-size: 0.9em; color: #6c757d; margin-top: 5px;">Дизайн и разработка
+									</div>
+								</td>
+								<td>
+									<div style="display: flex; align-items: center; gap: 10px;">
+										<div class="avatar">АИ</div>
+										<div>Анна Иванова</div>
+									</div>
+								</td>
+								<td><span class="status status-active">Активный</span></td>
+								<td>
+									<div class="progress-bar">
+										<div class="progress-fill progress-75"></div>
+									</div>
+									<div style="font-size: 0.8em; margin-top: 5px; color: #6c757d;">75%</div>
+								</td>
+								<td>15.12.2024</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>Мобильное приложение</strong>
+									<div style="font-size: 0.9em; color: #6c757d; margin-top: 5px;">iOS & Android</div>
+								</td>
+								<td>
+									<div style="display: flex; align-items: center; gap: 10px;">
+										<div class="avatar"
+											style="background: linear-gradient(135deg, #ff6b6b, #ee5a24);">ПС</div>
+										<div>Петр Сидоров</div>
+									</div>
+								</td>
+								<td><span class="status status-pending">Ожидание</span></td>
+								<td>
+									<div class="progress-bar">
+										<div class="progress-fill progress-50"></div>
+									</div>
+									<div style="font-size: 0.8em; margin-top: 5px; color: #6c757d;">50%</div>
+								</td>
+								<td>20.01.2025</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>Баз данных</strong>
+									<div style="font-size: 0.9em; color: #6c757d; margin-top: 5px;">Миграция и
+										оптимизация</div>
+								</td>
+								<td>
+									<div style="display: flex; align-items: center; gap: 10px;">
+										<div class="avatar"
+											style="background: linear-gradient(135deg, #1dd1a1, #10ac84);">МК</div>
+										<div>Мария Козлова</div>
+									</div>
+								</td>
+								<td><span class="status status-completed">Завершен</span></td>
+								<td>
+									<div class="progress-bar">
+										<div class="progress-fill progress-90"></div>
+									</div>
+									<div style="font-size: 0.8em; margin-top: 5px; color: #6c757d;">90%</div>
+								</td>
+								<td>05.11.2024</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+				<!-- НОВАЯ ТАБЛИЦА С МЕСЯЦАМИ -->
+				<div style="margin-top: 40px;">
+					<h3><i class="fas fa-calendar-alt"></i> Пример простой таблицы: Месяцы года</h3>
+					<p>Это пример простой таблицы, которая демонстрирует базовую структуру с заголовками, строками и
+						ячейками.
+						Все данные выровнены по центру как по горизонтали, так и по вертикали.</p>
+
+					<div style="display: flex; justify-content: center; margin: 25px 0;">
+						<table class="months-table">
+							<thead>
+								<tr>
+									<th>Месяц</th>
+									<th>Дней</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Январь</td>
+									<td>31</td>
+								</tr>
+								<tr>
+									<td>Февраль</td>
+									<td>28</td>
+								</tr>
+								<tr>
+									<td>Март</td>
+									<td>31</td>
+								</tr>
+								<tr>
+									<td>Апрель</td>
+									<td>30</td>
+								</tr>
+								<tr>
+									<td>Май</td>
+									<td>31</td>
+								</tr>
+								<tr>
+									<td>Июнь</td>
+									<td>30</td>
+								</tr>
+								<tr>
+									<td>Июль</td>
+									<td>31</td>
+								</tr>
+								<tr>
+									<td>Август</td>
+									<td>31</td>
+								</tr>
+								<tr>
+									<td>Сентябрь</td>
+									<td>30</td>
+								</tr>
+								<tr>
+									<td>Октябрь</td>
+									<td>31</td>
+								</tr>
+								<tr>
+									<td>Ноябрь</td>
+									<td>30</td>
+								</tr>
+								<tr>
+									<td>Декабрь</td>
+									<td>31</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+				<div style="margin-top: 25px;">
+					<h3><i class="fas fa-th-list"></i> Элементы таблицы</h3>
+					<div class="content-grid">
+						<div>
+							<p><strong>Ячейка</strong> — минимальная единица таблицы, содержит данные (текст, картинки и
+								т.д.)</p>
+							<p><strong>Строка</strong> — совокупность ячеек, расположенных рядом по горизонтали</p>
+						</div>
+						<div>
+							<p><strong>Колонка</strong> — совокупность ячеек, расположенных друг под другом по вертикали
+							</p>
+							<p><strong>Заголовок</strong> — текстовая строка для названия таблицы или её описания</p>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section class="card">
+				<h2><i class="fas fa-images"></i> Инструменты в картинках</h2>
+				<div class="content-grid">
+					<div>
+						<h3><i class="fab fa-figma"></i> Figma</h3>
+						<p>Онлайн-сервис для разработки интерфейсов и прототипирования с возможностью совместной работы
+							в реальном времени.</p>
+						<div class="image-container">
+							<img src="https://ytimg.googleusercontent.com/vi/K4t_QDbABnk/mqdefault.jpg" alt="Figma интерфейс" class="responsive-img">
+                        </div>
+						</div>
+
+						<div>
+							<h3><i class="fas fa-layer-group"></i> Magvi</h3>
+							<p>Онлайн-платформа для создания карточек с инфографикой для различных категорий товаров с
+								ИИ-опциями.</p>
+							<div class="image-container">
+								<img src="https://avatars.mds.yandex.net/i?id=eeea2c39f2309be0715b667417d4ba24_sr-4571838-images-thumbs&n=13" alt="Magvi интерфейс" class="responsive-img">
+                        </div>
+							</div>
+
+							<div>
+								<h3><i class="fas fa-fire"></i> Flaming Text</h3>
+								<p>Онлайн-инструмент для дизайна, который позволяет создавать текстовую графику с
+									огненным стилем.</p>
+								<div class="image-container">
+									<img src="https://gonnagan.wordpress.com/wp-content/uploads/2011/09/flamingtext.gif" alt="Flaming Text пример" class="responsive-img">
+                        </div>
+								</div>
+							</div>
+			</section>
+		</main>
+
+		<footer>
+			<p>Дипломный проект по веб-разработке • Создан с использованием современных технологий</p>
+			<p style="margin-top: 10px; opacity: 0.8;">© 2024 • Все права защищены</p>
+		</footer>
+	</div>
+
+	<script>
+		const emojis = ['😇', '🥰', '😍', '🤩', '😘', '😚', '😋', '😜', '🤪', '😝', '🤑', '🤗', '🥶', '🤯', '😱', '🤓', '🥳'];
         const container = document.getElementById('emojiContainer');
         
-       
-        for (let i = -10; i < 20; i++) {
+        for (let i = 0; i < 25; i++) {
             const emoji = document.createElement('div');
             emoji.className = 'emoji';
             emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
             
-           
             emoji.style.left = Math.random() * 100 + 'vw';
             emoji.style.top = Math.random() * 100 + 'vh';
             
-          
-            emoji.style.animationDuration = (Math.random() * 10 + 5) + 's';
+            emoji.style.animationDuration = (Math.random() * 15 + 10) + 's';
             emoji.style.animationDelay = (Math.random() * 5) + 's';
-            emoji.style.fontSize = (Math.random() * 20 + 20) + 'px';
-            emoji.style.opacity = Math.random() * 0.5 + 0.3;
+            emoji.style.fontSize = (Math.random() * 20 + 15) + 'px';
+            emoji.style.opacity = Math.random() * 0.4 + 0.2;
             
             container.appendChild(emoji);
         }
-</script>
-</head>
-<header>
-</header>
-</header>
-
-<body>
-
-				<img src="https://www.flamingtext.com/Tools/download/flamingtext_com.png?url=https://ov10-engine.flamingtext.com/netfu/tmp28001/flamingtext_com-2722002800.png&_loc=image"></a><p>
-	<h2></p><a href="https://www.figma.com/proto/EoiazpmUTNMZnWF67Qbbi2/Untitled?node-id=1-63&t=B5OoHxcY3iLDaEwo-0&scaling=min-zoom&content-scaling=fixed&page-id=1%3A2">Перейти
-		на Figma - создания черновика сайта</a>
-   <p><a href="https://magvi.ai/file">перейти на Magvi - генератор карточек</a></p>
-   <p><a href="https://www.flamingtext.com/">перейти на Flaming text - генератор красивого текста</a></p></h2>
-					<h1>Дипломный проэкт</h1>
-					<h3>О сайте</h3>
-					<h2>что такое сайт?</h2>
-					<div>
-						<footer>
-							<p>Сайт (веб-сайт) — это совокупность связанных веб-страниц, доступных в интернете и
-								объединённых под
-								одним доменным
-								именем.
-								sky.pro
-								bigenc.ru
-								Веб-страницы могут содержать текст, изображения, видео, аудио и другие мультимедийные
-								элементы.
-								Сайты могут быть
-								статическими, где контент редко изменяется, или динамическими, где контент обновляется
-								регулярно.
-					</footer>
-								<img src="https://static.tildacdn.info/tild3137-3637-4261-a231-356562323532/-/resize/504x/noroot.png"
-		      <p>
-			<h3>структура сайта</h3></p>
-								<p>-Главная страница. Это «лицо» сайта, отправная точка для посетителей. Здесь размещают
-									логотип, название
-									сайта, краткое
-									описание тематики и другие элементы.</p>
-								<p>-Разделы и категории. Это крупные блоки информации, посвящённые определённым темам.
-									Внутри разделов есть
-									категории,
-									которые позволяют упорядочить данные. Например, на сайте интернет-магазина одежды
-									разделами могут быть
-									«Женщины»,
-									«Мужчины», «Дети», а категориями внутри раздела «Женщины» — «Платья», «Блузки»,
-									«Брюки» и т. д..</p>
-								<p>-Подразделы и подкатегории. Используются для дальнейшей детализации информации,
-									особенно на крупных
-									сайтах с большим
-									объёмом контента. Создают иерархическую структуру, облегчающую поиск нужных данных.
-								</p>
-								<p>-Страницы. Это «кирпичики» сайта, которые содержат конкретную информацию: текст,
-									изображения, видео,
-									формы обратной
-									связи.</p>
-								<p>-Меню. Это навигация, которая помогает пользователям ориентироваться на сайте и
-									находить нужную
-									информацию. Меню может
-									быть главным, боковым или в футере.</p>
-								<p>-Внутренняя перелинковка. Это ссылки между страницами внутри сайта.</p>
-								<h3>Таблицы в сайте</h3>
-								<p>Таблицы на сайте — это специальный элемент, который предназначен для систематической
-									организации данных в виде строк и
-									столбцов.</p>
-								<p>Например: </p>
-								<header>
-								</header>
-																	<h1>структура сайта</h1>
-										<p>-Главная страница. Это «лицо» сайта, отправная точка для посетителей. Здесь
-											размещают
-											логотип, название
-											сайта, краткое
-											описание тематики и другие элементы.</p>
-										<p>-Разделы и категории. Это крупные блоки информации, посвящённые определённым
-											темам.
-											Внутри разделов есть
-											категории,
-											которые позволяют упорядочить данные. Например, на сайте интернет-магазина
-											одежды
-											разделами могут быть
-											«Женщины»,
-											«Мужчины», «Дети», а категориями внутри раздела «Женщины» — «Платья»,
-											«Блузки», «Брюки»
-											и т. д..</p>
-										<p>-Подразделы и подкатегории. Используются для дальнейшей детализации
-											информации, особенно
-											на крупных
-											сайтах с большим
-											объёмом контента. Создают иерархическую структуру, облегчающую поиск нужных
-											данных.</p>
-										<p>-Страницы. Это «кирпичики» сайта, которые содержат конкретную информацию:
-											текст,
-											изображения, видео,
-											формы обратной
-											связи.</p>
-										<p>-Меню. Это навигация, которая помогает пользователям ориентироваться на сайте
-											и находить
-											нужную
-											информацию. Меню может
-											быть главным, боковым или в футере.</p>
-										<p>-Внутренняя перелинковка. Это ссылки между страницами внутри сайта.</p>
-										<h1>Таблицы в сайте</h1>
-										<p>Таблицы на сайте — это специальный элемент, который предназначен для
-											систематической
-											организации данных в виде строк и
-											столбцов.</p>
-										<p>Например: </p>
-										<header>
-										</header>
-										<div class="container">
-											<div class="table-wrapper">
-												<div class="table-header">
-													<h1>📊 Проекты и Статусы</h1>
-													<p>Обзор текущих задач и прогресса команды</p>
-												</div>
-
-												<table class="modern-table">
-													<thead>
-														<tr>
-															<th>Проект</th>
-															<th>Ответственный</th>
-															<th>Статус</th>
-															<th>Прогресс</th>
-															<th>Срок</th>
-														</tr>
-													</thead>
-
-													<tbody>
-														<tr>
-															<td>
-																<strong>Веб-сайт компании</strong>
-																<div
-																	style="font-size: 0.9em; color: #6c757d; margin-top: 5px;">
-																	Дизайн и разработка</div>
-															</td>
-															<td>
-																<div
-																	style="display: flex; align-items: center; gap: 10px;">
-																	<div class="avatar">АИ</div>
-																	<div>Анна Иванова</div>
-																</div>
-															</td>
-															<td><span class="status status-active">Активный</span></td>
-															<td>
-																<div class="progress-bar">
-																	<div class="progress-fill progress-75"></div>
-																</div>
-																<div
-																	style="font-size: 0.8em; margin-top: 5px; color: #6c757d;">
-																	75%</div>
-															</td>
-															<td>15.12.2024</td>
-														</tr>
-														<tr>
-															<td>
-																<strong>Мобильное приложение</strong>
-																<div
-																	style="font-size: 0.9em; color: #6c757d; margin-top: 5px;">
-																	iOS & Android</div>
-															</td>
-															<td>
-																<div
-																	style="display: flex; align-items: center; gap: 10px;">
-																	<div class="avatar"
-																		style="background: linear-gradient(135deg, #ff6b6b, #ee5a24);">
-																		ПС
-																	</div>
-																	<div>Петр Сидоров</div>
-																</div>
-															</td>
-															<td><span class="status status-pending">Ожидание</span></td>
-															<td>
-																<div class="progress-bar">
-																	<div class="progress-fill progress-50"></div>
-																</div>
-																<div
-																	style="font-size: 0.8em; margin-top: 5px; color: #6c757d;">
-																	50%</div>
-															</td>
-															<td>20.01.2025</td>
-														</tr>
-														<tr>
-															<td>
-																<strong>Баз данных</strong>
-																<div
-																	style="font-size: 0.9em; color: #6c757d; margin-top: 5px;">
-																	Миграция и оптимизация</div>
-															</td>
-															<td>
-																<div
-																	style="display: flex; align-items: center; gap: 10px;">
-																	<div class="avatar"
-																		style="background: linear-gradient(135deg, #1dd1a1, #10ac84);">
-																		МК
-																	</div>
-																	<div>Мария Козлова</div>
-																</div>
-															</td>
-															<td><span class="status status-completed">Завершен</span>
-															</td>
-															<td>
-																<div class="progress-bar">
-																	<div class="progress-fill progress-90"></div>
-																</div>
-																<div
-																	style="font-size: 0.8em; margin-top: 5px; color: #6c757d;">
-																	90%</div>
-															</td>
-															<td>05.11.2024</td>
-														</tr>
-													</tbody>
-												</table>
-												<table class="modern-table">
-													<thead>
-														<tr>
-															<th>Проект</th>
-															<th>Ответственный</th>
-															<th>Статус</th>
-															<th>Прогресс</th>
-															<th>Срок</th>
-														</tr>
-													</thead>
-
-													<div class="table-footer">
-														Обновлено сегодня в 14:30 • 3 активных проекта
-													</div>
-											</div>
-										</div>
-									</div>
-									<header>
-									</header>
-                  <img src="https://image.shutterstock.com/image-vector/pricing-table-chart-price-plans-260nw-1437169940.jpg">
-									<p>В таблицу входит несколько элементов: </p>
-									<p>-Ячейка — минимальная единица таблицы, в ней располагаются сами данные, это может
-										быть текст, картинки или что-то ещё.</p>
-									<p>-Строка — совокупность ячеек, расположенных рядом друг с другом по горизонтали.
-									</p>
-									<p>-Колонка — совокупность ячеек, расположенных друг под другом по вертикали.</p>
-									<p>-Заголовок таблицы — текстовая строка, предназначенная для названия таблицы или
-										её описания.</p>
-									<p>Сылки и сайты можно делать у нейросети под названием Deep seek </p>
-									<h1>Figma</h1>
-									<p>Figma — онлайн-сервис для разработки интерфейсов и прототипирования с
-										возможностью организации совместной работы в
-										режиме реального времени. Используется для создания макетов сайтов, мобильных
-										приложений, прототипов и презентаций.</p>
-									
-										<img src="https://ytimg.googleusercontent.com/vi/K4t_QDbABnk/mqdefault.jpg">
+        
+        // Плавная прокрутка для навигации
+        document.querySelectorAll('.nav-btn').forEach(link => {
+            link.addEventListener('click', function(e) {
+                if(this.getAttribute('href').startsWith('#')) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 20,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+	</script>
 </body>
-		<header>
-		</header>
-						<h1>Что такое Magvi</h1>
-		<p>Magvi — онлайн-платформа для создания карточек с инфографикой для различных категорий товаров с некоторыми
-			ИИ-опциями.
-		</p>
-		<p>Некоторые возможности Magvi:</P>
-		<p>удаление и генерация фона по текстовым запросам;</p>
-		<p>встроенный редактор с 5 миллионами иконок;</p>
-		<p>219 шрифтов для оформления;</p>
-		<p>готовые шаблоны под разные товарные категории.</p>
-</body>
-<img src="https://avatars.mds.yandex.net/i?id=eeea2c39f2309be0715b667417d4ba24_sr-4571838-images-thumbs&n=13">
-<p>Flaming Text — это онлайн-инструмент для дизайна, который позволяет создавать текстовую графику с огненным стилем.</p>
-<p>С его помощью можно, например, оформить заголовок документа или логотип. Инструмент даёт возможность настроить шрифт,
-внутренние цвета, рамку, тень, цвет фона и многое другое.</p>
-<img src="https://gonnagan.wordpress.com/wp-content/uploads/2011/09/flamingtext.gif">
 
 </html>
